@@ -22,9 +22,9 @@ Equipe de **6 membres** — **6 microservices metier** (Spring Boot, 1 par membr
 | MS1           | 8081 | ms1_db (MySQL)       | Fatma Boussaada       |
 | MS2           | 8082 | ms2_db (PostgreSQL)  | Aziz ben Tekaya       |
 | MS3           | 8083 | ms3_db (MySQL)       | Jihen Sliti       |
-| MS4           | 8084 | ms4_db (MySQL)       | Mohamed Aziz garwachi      |
+| MS4           | 8084 | ms4_db (PostgreSQL)       | Mohamed Aziz garwachi      |
 | MS5           | 8085 | ms5_db (MySQL)       | Hiba Ben Youssef       |
-| MS6           | 8086 | ms6_db (MySQL)       | Molka Jmal      |
+| MS6           | 8086 | ms6_db (PostgreSQL)       | Molka Jmal      |
 | MS7 AI Engine | 8087 | -          | collectif |
 
 
