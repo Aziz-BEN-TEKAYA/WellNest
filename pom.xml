@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  POM d'agregation du projet WellNest.
+  Il regroupe les microservices Spring Boot pour qu'IntelliJ les importe automatiquement
+  a l'ouverture du depot, et pour pouvoir tout compiler/tester depuis la racine (mvn clean install).
+  Chaque microservice garde son propre pom.xml et son parent spring-boot-starter-parent.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>tn.esprit</groupId>
+    <artifactId>wellnest</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>WellNest</name>
+    <description>Plateforme WellNest - microservices Spring Boot</description>
+
+    <modules>
+        <module>Backend/MS1</module>
+        <module>Backend/MS2</module>
+        <module>Backend/MS3</module>
+        <module>Backend/MS4</module>
+        <module>Backend/MS5</module>
+        <module>Backend/MS6</module>
+        <!-- MS7 (WellNest AI Engine) est en Python : ce n'est pas un module Maven -->
+    </modules>
+</project>
