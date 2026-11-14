@@ -50,8 +50,9 @@ tn.esprit.msX
    automatiquement les 6 microservices Spring Boot (MS1 a MS6), sans « Add as Maven Project ».
    Depuis la racine, `mvn clean install` compile et teste tous les services.
 1. MySQL sur `localhost:3306` (user `root`, mot de passe vide — a adapter dans `application.properties`).
-   Pour MS2 : PostgreSQL sur `localhost:5432` (user `postgres` / `postgres`), base a creer une fois : `CREATE DATABASE ms2_db;`
-   Chaque base `msX_db` est creee automatiquement.
+   Pour MS2, MS4 et MS6 : PostgreSQL sur `localhost:5432` (user `postgres` / `postgres`),
+   bases a creer une fois : `CREATE DATABASE ms2_db;` `CREATE DATABASE ms4_db;` `CREATE DATABASE ms6_db;`
+   Les bases MySQL (MS1, MS3, MS5) sont creees automatiquement.
 2. Lancer le microservice :
 
 ```bash
