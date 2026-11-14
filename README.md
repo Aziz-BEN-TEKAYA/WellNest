@@ -7,7 +7,7 @@ Equipe de **6 membres** — **6 microservices metier** (Spring Boot, 1 par membr
 ```
 .
 ├── Backend/          # microservices
-│   ├── MS1 ... MS6   # Spring Boot, une base MySQL chacun
+│   ├── MS1 ... MS6   # Spring Boot, une base dediee chacun (MySQL ou PostgreSQL)
 │   └── MS7           # WellNest AI Engine (Python ou Node.js)
 ├── Frontend/         # application Angular
 └── Documentation/
@@ -17,14 +17,14 @@ Equipe de **6 membres** — **6 microservices metier** (Spring Boot, 1 par membr
 
 > L'infrastructure (Eureka Server, API Gateway, Keycloak) sera ajoutée dans une étape ultérieure.
 
-| Module        | Port | Base MySQL | Responsable    |
-|---------------|------|------------|----------------|
-| MS1           | 8081 | ms1_db     | Fatma Boussaada       |
-| MS2           | 8082 | ms2_db     | Aziz ben Tekaya       |
-| MS3           | 8083 | ms3_db     | Jihen Sliti       |
-| MS4           | 8084 | ms4_db     | Mohamed Aziz garwachi      |
-| MS5           | 8085 | ms5_db     | Hiba Ben Youssef       |
-| MS6           | 8086 | ms6_db     | Molka Jmal      |
+| Module        | Port | Base de donnees      | Responsable    |
+|---------------|------|----------------------|----------------|
+| MS1           | 8081 | ms1_db (MySQL)       | Fatma Boussaada       |
+| MS2           | 8082 | ms2_db (PostgreSQL)  | Aziz ben Tekaya       |
+| MS3           | 8083 | ms3_db (MySQL)       | Jihen Sliti       |
+| MS4           | 8084 | ms4_db (MySQL)       | Mohamed Aziz garwachi      |
+| MS5           | 8085 | ms5_db (MySQL)       | Hiba Ben Youssef       |
+| MS6           | 8086 | ms6_db (MySQL)       | Molka Jmal      |
 | MS7 AI Engine | 8087 | -          | collectif |
 
 
@@ -47,6 +47,7 @@ tn.esprit.msX
 ## Demarrage
 
 1. MySQL sur `localhost:3306` (user `root`, mot de passe vide — a adapter dans `application.properties`).
+   Pour MS2 : PostgreSQL sur `localhost:5432` (user `postgres` / `postgres`), base a creer une fois : `CREATE DATABASE ms2_db;`
    Chaque base `msX_db` est creee automatiquement.
 2. Lancer le microservice :
 
