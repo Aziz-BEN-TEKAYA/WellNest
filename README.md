@@ -20,10 +20,10 @@ Equipe de **6 membres** — **6 microservices metier** (Spring Boot, 1 par membr
 | Module        | Port | Base de donnees      | Responsable    |
 |---------------|------|----------------------|----------------|
 | MS1           | 8081 | ms1_db (MySQL)       | Fatma Boussaada       |
-| MS2           | 8082 | ms2_db (PostgreSQL)  | Aziz ben Tekaya       |
+| MS2           | 8082 | ms2_db (MySQL)       | Aziz ben Tekaya       |
 | MS3           | 8083 | ms3_db (MySQL)       | Jihen Sliti       |
 | MS4           | 8084 | ms4_db (PostgreSQL)       | Mohamed Aziz garwachi      |
-| MS5           | 8085 | ms5_db (MySQL)       | Hiba Ben Youssef       |
+| MS5           | 8085 | ms5_db (PostgreSQL)  | Hiba Ben Youssef       |
 | MS6           | 8086 | ms6_db (PostgreSQL)       | Molka Jmal      |
 | MS7 AI Engine | 8087 | -          | collectif |
 
@@ -50,9 +50,9 @@ tn.esprit.msX
    automatiquement les 6 microservices Spring Boot (MS1 a MS6), sans « Add as Maven Project ».
    Depuis la racine, `mvn clean install` compile et teste tous les services.
 1. MySQL sur `localhost:3306` (user `root`, mot de passe vide — a adapter dans `application.properties`).
-   Pour MS2, MS4 et MS6 : PostgreSQL sur `localhost:5432` (user `postgres` / `postgres`),
-   bases a creer une fois : `CREATE DATABASE ms2_db;` `CREATE DATABASE ms4_db;` `CREATE DATABASE ms6_db;`
-   Les bases MySQL (MS1, MS3, MS5) sont creees automatiquement.
+   Pour MS4, MS5 et MS6 : PostgreSQL sur `localhost:5432` (user `postgres` / `postgres`),
+   bases a creer une fois : `CREATE DATABASE ms4_db;` `CREATE DATABASE ms5_db;` `CREATE DATABASE ms6_db;`
+   Les bases MySQL (MS1, MS2, MS3) sont creees automatiquement.
 2. Lancer le microservice :
 
 ```bash
