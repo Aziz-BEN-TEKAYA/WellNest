@@ -1,6 +1,8 @@
 package tn.esprit.ms1.controller;
 
-import tn.esprit.ms1.entity.Repas;
+import tn.esprit.ms1.dto.RepasRequest;
+import tn.esprit.ms1.dto.RepasResponse;
+import tn.esprit.ms1.mapper.RepasMapper;
 import tn.esprit.ms1.service.RepasService;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,24 +17,32 @@ import java.util.List;
 public class RepasController {
 
     private final RepasService service;
+    private final RepasMapper mapper;
 
-    public RepasController(RepasService service) { this.service = service; }
+    public RepasController(RepasService service, RepasMapper mapper) {
+        this.service = service;
+        this.mapper = mapper;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Repas ajouter(@Valid @RequestBody Repas repas) { return service.ajouter(repas); }
+    public RepasResponse ajouter(@Valid @RequestBody RepasRequest request) {
+        return mapper.toResponse(service.ajouter(mapper.toEntity(request)));
+    }
 
     @GetMapping
-    public List<Repas> lister(@RequestParam(required = false) String userId,
-                              @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        return service.lister(userId, date);
+    public List<RepasResponse> lister(@RequestParam(required = false) String userId,
+                                      @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return service.lister(userId, date).stream().map(mapper::toResponse).toList();
     }
 
     @GetMapping("/{id}")
-    public Repas trouver(@PathVariable String id) { return service.trouver(id); }
+    public RepasResponse trouver(@PathVariable String id) { return mapper.toResponse(service.trouver(id)); }
 
     @PutMapping("/{id}")
-    public Repas modifier(@PathVariable String id, @Valid @RequestBody Repas repas) { return service.modifier(id, repas); }
+    public RepasResponse modifier(@PathVariable String id, @Valid @RequestBody RepasRequest request) {
+        return mapper.toResponse(service.modifier(id, mapper.toEntity(request)));
+    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

@@ -1,6 +1,8 @@
 package tn.esprit.ms1.controller;
 
-import tn.esprit.ms1.entity.SuiviHydratation;
+import tn.esprit.ms1.dto.SuiviHydratationRequest;
+import tn.esprit.ms1.dto.SuiviHydratationResponse;
+import tn.esprit.ms1.mapper.SuiviHydratationMapper;
 import tn.esprit.ms1.service.HydratationService;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,19 +18,23 @@ import java.util.Map;
 public class HydratationController {
 
     private final HydratationService service;
+    private final SuiviHydratationMapper mapper;
 
-    public HydratationController(HydratationService service) { this.service = service; }
+    public HydratationController(HydratationService service, SuiviHydratationMapper mapper) {
+        this.service = service;
+        this.mapper = mapper;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public SuiviHydratation enregistrer(@Valid @RequestBody SuiviHydratation suivi) {
-        return service.enregistrerConsommation(suivi);
+    public SuiviHydratationResponse enregistrer(@Valid @RequestBody SuiviHydratationRequest request) {
+        return mapper.toResponse(service.enregistrerConsommation(mapper.toEntity(request)));
     }
 
     @GetMapping
-    public List<SuiviHydratation> lister(@RequestParam(required = false) String userId,
-                                         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        return service.lister(userId, date);
+    public List<SuiviHydratationResponse> lister(@RequestParam(required = false) String userId,
+                                                 @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return service.lister(userId, date).stream().map(mapper::toResponse).toList();
     }
 
     @GetMapping("/summary")

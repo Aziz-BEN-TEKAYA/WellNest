@@ -1,6 +1,8 @@
 package tn.esprit.ms1.controller;
 
-import tn.esprit.ms1.entity.ObjectifNutritionnel;
+import tn.esprit.ms1.dto.ObjectifNutritionnelRequest;
+import tn.esprit.ms1.dto.ObjectifNutritionnelResponse;
+import tn.esprit.ms1.mapper.ObjectifNutritionnelMapper;
 import tn.esprit.ms1.service.ObjectifService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -13,22 +15,33 @@ import java.util.List;
 public class ObjectifController {
 
     private final ObjectifService service;
+    private final ObjectifNutritionnelMapper mapper;
 
-    public ObjectifController(ObjectifService service) { this.service = service; }
+    public ObjectifController(ObjectifService service, ObjectifNutritionnelMapper mapper) {
+        this.service = service;
+        this.mapper = mapper;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ObjectifNutritionnel creer(@Valid @RequestBody ObjectifNutritionnel objectif) { return service.creer(objectif); }
+    public ObjectifNutritionnelResponse creer(@Valid @RequestBody ObjectifNutritionnelRequest request) {
+        return mapper.toResponse(service.creer(mapper.toEntity(request)));
+    }
 
     @GetMapping
-    public List<ObjectifNutritionnel> lister(@RequestParam(required = false) String userId) { return service.lister(userId); }
+    public List<ObjectifNutritionnelResponse> lister(@RequestParam(required = false) String userId) {
+        return service.lister(userId).stream().map(mapper::toResponse).toList();
+    }
 
     @GetMapping("/{id}")
-    public ObjectifNutritionnel trouver(@PathVariable String id) { return service.trouver(id); }
+    public ObjectifNutritionnelResponse trouver(@PathVariable String id) {
+        return mapper.toResponse(service.trouver(id));
+    }
 
     @PutMapping("/{id}")
-    public ObjectifNutritionnel modifier(@PathVariable String id, @Valid @RequestBody ObjectifNutritionnel objectif) {
-        return service.modifier(id, objectif);
+    public ObjectifNutritionnelResponse modifier(@PathVariable String id,
+                                                 @Valid @RequestBody ObjectifNutritionnelRequest request) {
+        return mapper.toResponse(service.modifier(id, mapper.toEntity(request)));
     }
 
     @DeleteMapping("/{id}")
