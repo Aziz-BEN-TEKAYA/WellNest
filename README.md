@@ -7,6 +7,7 @@ Equipe de **6 membres** — **6 microservices metier** (Spring Boot, 1 par membr
 ```
 .
 ├── Backend/          # microservices
+│   ├── eureka-server # annuaire des microservices (Netflix Eureka)
 │   ├── MS1 ... MS6   # Spring Boot, une base dediee chacun (MySQL ou PostgreSQL)
 │   └── MS7           # WellNest AI Engine (Python ou Node.js)
 ├── Frontend/         # application Angular
@@ -15,10 +16,11 @@ Equipe de **6 membres** — **6 microservices metier** (Spring Boot, 1 par membr
     └── Diagrams/     # architecture globale et diagrammes du projet
 ```
 
-> L'infrastructure (Eureka Server, API Gateway, Keycloak) sera ajoutée dans une étape ultérieure.
+> Eureka Server est en place. L'API Gateway et Keycloak seront ajoutés dans une étape ultérieure.
 
 | Module        | Port | Base de donnees      | Responsable    |
 |---------------|------|----------------------|----------------|
+| Eureka Server | 8761 | -                    | collectif      |
 | MS1           | 8081 | ms1_db (MySQL)       | Fatma Boussaada       |
 | MS2           | 8082 | ms2_db (MySQL)       | Aziz ben Tekaya       |
 | MS3           | 8083 | ms3_db (MySQL)       | Jihen Sliti       |
@@ -53,11 +55,17 @@ tn.esprit.msX
    Pour MS4, MS5 et MS6 : PostgreSQL sur `localhost:5432` (user `postgres` / `postgres`),
    bases a creer une fois : `CREATE DATABASE ms4_db;` `CREATE DATABASE ms5_db;` `CREATE DATABASE ms6_db;`
    Les bases MySQL (MS1, MS2, MS3) sont creees automatiquement.
-2. Lancer le microservice :
+2. Lancer d'abord Eureka Server, puis le microservice :
+
+```bash
+cd Backend/eureka-server && ./mvnw spring-boot:run
+```
 
 ```bash
 cd Backend/MS1 && ./mvnw spring-boot:run
 ```
+
+Tableau de bord Eureka : `http://localhost:8761` (chaque microservice lance y apparait sous son `spring.application.name`).
 
 Swagger : `http://localhost:808X/swagger-ui.html`
 

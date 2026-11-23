@@ -18,6 +18,9 @@
     <description>Plateforme WellNest - microservices Spring Boot</description>
 
     <modules>
+        <!-- Infrastructure -->
+        <module>Backend/eureka-server</module>
+        <!-- Microservices metier -->
         <module>Backend/MS1</module>
         <module>Backend/MS2</module>
         <module>Backend/MS3</module>
