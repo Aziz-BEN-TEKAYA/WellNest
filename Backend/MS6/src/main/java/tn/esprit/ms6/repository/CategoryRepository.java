@@ -8,4 +8,7 @@ import tn.esprit.ms6.entity.Category;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     boolean existsByNameIgnoreCase(String name);
+
+    /** Sert à la modification : le nom existe-t-il pour une AUTRE catégorie ? */
+    boolean existsByNameIgnoreCaseAndIdNot(String name, Long id);
 }
