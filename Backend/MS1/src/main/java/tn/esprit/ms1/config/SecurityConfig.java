@@ -18,12 +18,13 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/nutrition/**", "/swagger-ui.html", "/swagger-ui/**",
-                                 "/v3/api-docs/**", "/actuator/health", "/actuator/info").permitAll()
-                .anyRequest().authenticated())
-            .httpBasic(Customizer.withDefaults());
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/nutrition/**", "/swagger-ui.html", "/swagger-ui/**",
+                                "/v3/api-docs/**", "/actuator/health", "/actuator/info",
+                                "/actuator/metrics", "/actuator/metrics/**").permitAll()
+                        .anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 }
