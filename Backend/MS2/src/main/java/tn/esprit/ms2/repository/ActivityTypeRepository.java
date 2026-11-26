@@ -16,6 +16,8 @@ public interface ActivityTypeRepository extends JpaRepository<ActivityType, Long
 
     boolean existsByCategoryId(Long categoryId);
 
+    long countBySuitableForSeniorsTrue();
+
     List<ActivityType> findByCategoryIdOrderByNameAsc(Long categoryId);
 
     /** Filtrage : chaque critere null est ignore. */
