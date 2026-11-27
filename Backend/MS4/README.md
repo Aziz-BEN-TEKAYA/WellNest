@@ -24,11 +24,37 @@ Les tables sont créées automatiquement par Hibernate (`ddl-auto=update`) :
 ## Lancer
 
 ```bash
-cd Backend/MS4
-./mvnw spring-boot:run      # Java 17 minimum
+cd Backend/eureka-server && ./mvnw spring-boot:run  # 1. serveur de découverte (port 8761)
+cd Backend/MS4 && ./mvnw spring-boot:run            # 2. MS4 (Java 17 minimum)
 ```
 
 Swagger : http://localhost:8084/swagger-ui.html
+
+## Eureka (découverte de services)
+
+MS4 est un client Eureka : au démarrage, il s'enregistre sous le nom **MS4** auprès de
+http://localhost:8761/eureka, puis envoie un heartbeat toutes les 30 s.
+
+- `eureka.instance.prefer-ip-address=true` : MS4 s'annonce avec son adresse IP.
+- `eureka.client.healthcheck.enabled=true` : le statut publié dans Eureka est celui de
+  `/actuator/health`. Si PostgreSQL tombe, l'instance passe **DOWN** et n'est plus proposée.
+- L'URL du serveur peut être changée avec la variable d'environnement `EUREKA_URL`.
+
+Deuxième instance (montée en charge) :
+
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.arguments=--server.port=8094
+```
+
+Dans IntelliJ : *Run → Edit Configurations → Copy Configuration*, puis VM options `-Dserver.port=8094`.
+
+## Actuator (observabilité)
+
+| Endpoint | Contenu |
+|---|---|
+| `/actuator/health` | Statut global + détails (base `db`, disque, `discoveryComposite`) |
+| `/actuator/info` | Nom, description et version du service |
+| `/actuator/metrics` | Métriques Micrometer (JVM, requêtes HTTP...) |
 
 ## API — base `/api/v1/sleep-wellness`
 
